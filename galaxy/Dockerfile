@@ -16,7 +16,7 @@ MAINTAINER Björn A. Grüning, bjoern.gruening@gmail.com
 ARG GALAXY_RELEASE
 ARG GALAXY_REPO
 
-ENV GALAXY_RELEASE=${GALAXY_RELEASE:-release_20.09} \
+ENV GALAXY_RELEASE=${GALAXY_RELEASE:-release_21.09} \
     GALAXY_REPO=${GALAXY_REPO:-https://github.com/galaxyproject/galaxy} \
     GALAXY_ROOT=/galaxy-central \
     GALAXY_CONFIG_DIR=/etc/galaxy \
@@ -163,7 +163,7 @@ ADD provision.yml /ansible/provision.yml
 ADD postgresql_provision.yml /ansible/postgresql_provision.yml
 
 ## This is playbook is modifying/installing python2 and python3 stuff
-RUN apt update -qq && apt install --no-install-recommends -y ansible dirmngr gpg gpg-agent \
+RUN apt update -qq && apt install --no-install-recommends -y ansible dirmngr gpg gpg-agent build-essential \
     && ansible-playbook /ansible/postgresql_provision.yml \
     && apt purge ansible dirmngr gpg gpg-agent -y && apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     # cleanup dance
